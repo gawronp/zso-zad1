@@ -1,9 +1,18 @@
-#define ALIEN_KEY_ENTER 0x0a
+#ifndef _ALIENOS_H_
+#define _ALIENOS_H_
+
 #define ALIEN_ASCII_LOWEST_KEY 0x20
 #define ALIEN_ASCII_HIGHEST_KEY 0x7e
+
+#define ALIEN_KEY_ENTER 0x0a
 #define ALIEN_KEY_UP 0x80
 #define ALIEN_KEY_LEFT 0x81
 #define ALIEN_KEY_DOWN 0x82
 #define ALIEN_KEY_RIGHT 0x83
 
 #define PT_PARAMS 0x60031337
+
+#define WIN_WIDTH 80
+#define WIN_HEIGHT 24
+
+#endif
