@@ -10,7 +10,13 @@
 // asserts call result is not equal to retval, otherwise prints error message and quits
 #define CALL_NEQ(retval, call)                                              \
     if((retval) == (call)) {                                                \
-        errx(ERROR_EMU, #call " failed in %s:%d",  __FILE__, __LINE__);   \
+        errx(ERROR_EMU, #call " failed in %s:%d",  __FILE__, __LINE__);     \
+    }
+
+// asserts call result is not equal to retval, otherwise prints error message, errno information and quits
+#define CALL_NEQ_ERRNO(retval, call)                                              \
+    if((retval) == (call)) {                                                \
+        err(ERROR_EMU, #call " failed in %s:%d",  __FILE__, __LINE__);     \
     }
 
 // gets called when error occured

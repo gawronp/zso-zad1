@@ -20,8 +20,17 @@ struct section_info get_params_section_info(const char *elf_path) {
 
     Elf64_Ehdr elf_hdr;
     fread(&elf_hdr, 1, sizeof(elf_hdr), elf_file);
+    if (elf_hdr.e_ident[EI_MAG0] != ELFMAG0 || elf_hdr.e_ident[EI_MAG1] != ELFMAG1 ||
+            elf_hdr.e_ident[EI_MAG2] != ELFMAG2 || elf_hdr.e_ident[EI_MAG3] != ELFMAG3 ||
+            elf_hdr.e_ident[EI_CLASS] != ELFCLASS64 || elf_hdr.e_ident[EI_DATA] != ELFDATA2LSB ||
+            elf_hdr.e_ident[EI_VERSION] != EV_CURRENT || elf_hdr.e_ident[EI_OSABI] != ELFOSABI_NONE) {
+        SIMPLE_ERR("Elf header incorrect!");
+    }
     if (elf_hdr.e_type != ET_EXEC) {
         SIMPLE_ERR("Provided elf file is not of type ET_EXEC!");
+    }
+    if (elf_hdr.e_phentsize != sizeof(Elf64_Phdr)) {
+        SIMPLE_ERR("Elf header of alien program contains program header size != proper elf 64 program header size");
     }
 
     Elf64_Phdr phdr;
@@ -41,7 +50,6 @@ struct section_info get_params_section_info(const char *elf_path) {
             }
         }
         if (phdr.p_type == PT_INTERP) {
-            // TODO?
             SIMPLE_ERR("There is a PT_INTERP section in alien program!");
         }
     }

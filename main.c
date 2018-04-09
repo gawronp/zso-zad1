@@ -10,6 +10,10 @@
 #include "elf.h"
 
 int main(int argc, char **argv) {
+    if (argc <= 1) {
+        SIMPLE_ERR("Too few arguments, at least one argument required (path to alien program).");
+    }
+
     unsigned int provided_args_for_alien_prog = (unsigned int) argc - 2;
     int *params = malloc(provided_args_for_alien_prog * sizeof(int));
     for (int i = 2; i < argc; i++) {

@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <sys/user.h>
 #include <stdint.h>
+#include <signal.h>
+#include <sys/prctl.h>
 
 #include "trace.h"
 
@@ -34,6 +36,9 @@ void process_getrand(pid_t pid) {
 
 void process_print(pid_t pid, struct user_regs_struct *regs) {
     uint16_t *local_copy = malloc(sizeof(uint16_t) * regs->r10);
+    if (local_copy == NULL) {
+        CALL_ERR("Malloc failed.");
+    }
     copy_to_host(pid, (void *) local_copy, (void *) regs->rdx, sizeof(uint16_t) * regs->r10);
     emulate_print(regs->rsi, regs->rdi, local_copy, regs->r10);
     free(local_copy);
@@ -43,13 +48,13 @@ void execute(char *const path, struct section_info params_section, const int *pa
     pid_t sandbox_pid = fork();
     CALL_NEQ(-1, sandbox_pid);
     if (sandbox_pid == 0) {
-        ptrace(PTRACE_TRACEME, 0, NULL, NULL);
+        CALL_NEQ_ERRNO(-1, ptrace(PTRACE_TRACEME, 0, NULL, NULL));
+        CALL_NEQ_ERRNO(-1, prctl(PR_SET_PDEATHSIG, SIGKILL, 0, 0, 0));
         char *const args[] = { path, NULL};
         execve(path, args, NULL);
     } else {
         // set flags such, that alien process can't escape parent process
-        ptrace(PTRACE_SETOPTIONS, sandbox_pid, NULL, PTRACE_O_EXITKILL);
-        ptrace(PTRACE_SYSCALL, sandbox_pid, NULL, NULL); // execve syscall
+        CALL_NEQ_ERRNO(-1, ptrace(PTRACE_SYSCALL, sandbox_pid, NULL, NULL)); // execve syscall
         wait_and_exit_if_alien_exited();
         // execve done, we set program parameters:
         if (params_section.length_bytes > 0) {
@@ -59,7 +64,7 @@ void execute(char *const path, struct section_info params_section, const int *pa
                           params_section.length_bytes);
         }
         while(1) {
-            ptrace(PTRACE_SYSEMU, sandbox_pid, NULL, NULL);
+            CALL_NEQ_ERRNO(-1, ptrace(PTRACE_SYSEMU, sandbox_pid, NULL, NULL));
             wait_and_exit_if_alien_exited();
             struct user_regs_struct regs = get_registers(sandbox_pid);
             switch (regs.orig_rax) {

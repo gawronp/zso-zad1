@@ -53,14 +53,14 @@ int emulate_getkey() {
 }
 
 void check_terminal_area_access(int y, int x) {
-    if (y < 0 || y > WIN_HEIGHT || x < 0 || x > WIN_WIDTH) {
+    if (y < 0 || y >= WIN_HEIGHT || x < 0 || x >= WIN_WIDTH) {
         SIMPLE_ERR("Alien process tried to print outside terminal window.");
     }
 }
 
 void check_char_value(char c) {
     if (c < MIN_PRINTABLE_CHAR_ASCII_VAL || MAX_PRINTABLE_CHAR_ASCII_VAL < c) {
-        SIMPLE_ERR("Alien process tried to print char with ascii value not in range 0x20 .. 0x7e.");
+        SIMPLE_ERR("Alien process tried to print invalid character.");
     }
 }
 
