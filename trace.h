@@ -3,6 +3,7 @@
 
 #include "elf.h"
 
-void execute(char *const path, struct section_info params_section, const int *params_vals);
+void execute(char *const path, struct section_info params_section,
+             const int *params_vals);
 
 #endif

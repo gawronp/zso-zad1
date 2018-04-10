@@ -3,7 +3,8 @@
 
 void copy_to_host(pid_t pid, void *start_local, void *start_remote, int length);
 
-void copy_to_guest(pid_t pid, void *start_local, void *start_remote, int length);
+void copy_to_guest(pid_t pid, void *start_local, void *start_remote,
+                   int length);
 
 struct user_regs_struct get_registers(pid_t pid);
 
