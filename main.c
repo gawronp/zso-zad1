@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
   keypad(stdscr, true);
   resizeterm(WIN_HEIGHT, WIN_WIDTH);
   (void)getch();  // we don't need to read KEY_RESIZE later
+  start_color();
   refresh();
   execute(argv[1], params_section, params);
 }

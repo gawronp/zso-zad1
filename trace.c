@@ -50,12 +50,10 @@ void execute(char *const path, struct section_info params_section,
   CALL_NEQ(-1, sandbox_pid);
   if (sandbox_pid == 0) {
     CALL_NEQ_ERRNO(-1, ptrace(PTRACE_TRACEME, 0, NULL, NULL));
-    // set flags such, that alien process can't escape parent process
     CALL_NEQ_ERRNO(-1, prctl(PR_SET_PDEATHSIG, SIGKILL, 0, 0, 0));
     char *const args[] = {path, NULL};
     execve(path, args, NULL);
   } else {
-    CALL_NEQ_ERRNO(-1, ptrace(PTRACE_SYSCALL, sandbox_pid, NULL, NULL));  // execve syscall
     wait_and_exit_if_alien_exited();
     // execve done, we set program parameters:
     if (params_section.length_bytes > 0) {
