@@ -24,7 +24,7 @@ void wait_and_exit_if_alien_exited() {
 }
 
 void process_getkey(pid_t pid) {
-  char c = emulate_getkey();
+  int c = emulate_getkey();
   set_return_value_reg(pid, (uint64_t)c);
 }
 
