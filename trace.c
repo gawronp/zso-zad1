@@ -1,10 +1,9 @@
+#include <sys/ptrace.h>
 #include <asm/ptrace.h>
-#include <signal.h>
 #include <signal.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <sys/prctl.h>
-#include <sys/ptrace.h>
 #include <sys/types.h>
 #include <sys/user.h>
 #include <sys/wait.h>
@@ -56,8 +55,7 @@ void execute(char *const path, struct section_info params_section,
     char *const args[] = {path, NULL};
     execve(path, args, NULL);
   } else {
-    CALL_NEQ_ERRNO(
-        -1, ptrace(PTRACE_SYSCALL, sandbox_pid, NULL, NULL));  // execve syscall
+    CALL_NEQ_ERRNO(-1, ptrace(PTRACE_SYSCALL, sandbox_pid, NULL, NULL));  // execve syscall
     wait_and_exit_if_alien_exited();
     // execve done, we set program parameters:
     if (params_section.length_bytes > 0) {
