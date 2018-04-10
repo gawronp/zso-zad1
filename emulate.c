@@ -71,11 +71,9 @@ void emulate_print(int y, int x, uint16_t *chars, int n) {
   for (int i = 0; i < n; i++) {
     check_char_value((char)(chars[i] & CHAR_MASK));
     check_terminal_area_access(y, x + i);
-    set_pair_w_color_on_black(DEFAULT_PAIR, get_letter_color(chars[i]));
-    CALL_NEQ(ERR, attron(COLOR_PAIR(DEFAULT_PAIR)));
+    int color_attr = get_color_attr(get_letter_color(chars[i]));
     CALL_NEQ(ERR, mvdelch(y, x + i));
-    CALL_NEQ(ERR, mvinsch(y, x + i, chars[i] & CHAR_MASK));
-    CALL_NEQ(ERR, attroff(COLOR_PAIR(DEFAULT_PAIR)));
+    CALL_NEQ(ERR, mvinsch(y, x + i, (chars[i] & CHAR_MASK) | color_attr));
   }
   CALL_NEQ(ERR, wnoutrefresh(stdscr));
   setsyx(orig_y, orig_x);

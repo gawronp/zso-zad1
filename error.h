@@ -4,6 +4,7 @@
 #include <err.h>
 #include <stdbool.h>
 #include <stdnoreturn.h>
+#include <stdio.h>
 
 #define ERROR_EMU 127
 

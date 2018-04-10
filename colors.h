@@ -23,8 +23,10 @@
 #define DEFAULT_COLOR_FOR_FOREGROUND 1
 #define DEFAULT_PAIR 1
 
+void init_color_pairs();
+
 int get_letter_color(uint16_t letter);
 
-void set_pair_w_color_on_black(int pair_id, int color_code);
+int get_color_attr(int color_code);
 
 #endif

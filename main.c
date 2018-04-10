@@ -8,6 +8,7 @@
 #include "elf.h"
 #include "error.h"
 #include "trace.h"
+#include "colors.h"
 
 int main(int argc, char **argv) {
   if (argc <= 1) {
@@ -35,7 +36,6 @@ int main(int argc, char **argv) {
         "Provided different arguments count from arguments count of alien "
         "program.");
   }
-
   initscr();
   noecho();
   atexit((void (*)(void))endwin);
@@ -44,5 +44,6 @@ int main(int argc, char **argv) {
   (void)getch();  // we don't need to read KEY_RESIZE later
   start_color();
   refresh();
+  init_color_pairs();
   execute(argv[1], params_section, params);
 }
