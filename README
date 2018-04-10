@@ -1,0 +1,9 @@
+Kompilacja na obrazie qemu polega na wykonaniu komendy make w katalogu z rozwiązaniem.
+Wszystkie niezbędne biblioteki są już na obrazie (np. ncurses).
+
+Gdy program emu napotka błąd, kończy się wypisując stosowny komunikat o błędzie.
+Do błędów należą między innymi: błędne lub niespójne informacje w pliku ELF, błędne użycie
+syscalli przez program kosmitów, wszystkie błędy niezależne od programu kosmitów - np. błędy
+w wywołaniach funkcji systemowych przez program emu.
+
+Wartości RGB kolorów zostały dobrane zgodnie z uznaniem tak, aby przpominały te opisane w tresci zadania.
