@@ -3,8 +3,8 @@
 
 #include <err.h>
 #include <stdbool.h>
-#include <stdnoreturn.h>
 #include <stdio.h>
+#include <stdnoreturn.h>
 
 #define ERROR_EMU 127
 

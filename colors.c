@@ -4,18 +4,18 @@
 #include "error.h"
 
 void init_color_pairs() {
-    if (COLOR_PAIRS < 8) {
-        SIMPLE_ERR("Not enough color pairs available.");
-    }
+  if (COLOR_PAIRS < 8) {
+    SIMPLE_ERR("Not enough color pairs available.");
+  }
 
-    CALL_NEQ(ERR, init_pair(A_BLACK + 1, COLOR_BLACK, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_BLUE + 1, COLOR_BLUE, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_GREEN + 1, COLOR_GREEN, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_TURQOISE + 1, COLOR_CYAN, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_RED + 1, COLOR_RED, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_PINK + 1, COLOR_MAGENTA, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_YELLOW + 1, COLOR_YELLOW, COLOR_BLACK));
-    CALL_NEQ(ERR, init_pair(A_WHITE + 1, COLOR_WHITE, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_BLACK + 1, COLOR_BLACK, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_BLUE + 1, COLOR_BLUE, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_GREEN + 1, COLOR_GREEN, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_TURQOISE + 1, COLOR_CYAN, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_RED + 1, COLOR_RED, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_PINK + 1, COLOR_MAGENTA, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_YELLOW + 1, COLOR_YELLOW, COLOR_BLACK));
+  CALL_NEQ(ERR, init_pair(A_WHITE + 1, COLOR_WHITE, COLOR_BLACK));
 }
 
 int get_color_attr(int color_code) {

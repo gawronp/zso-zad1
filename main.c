@@ -5,10 +5,10 @@
 #include <string.h>
 
 #include "alienos.h"
+#include "colors.h"
 #include "elf.h"
 #include "error.h"
 #include "trace.h"
-#include "colors.h"
 
 int main(int argc, char **argv) {
   if (argc <= 1) {
