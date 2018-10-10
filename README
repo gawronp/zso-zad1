@@ -1,5 +1,29 @@
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Advanced Operating Systems Course, Assignment 1
+Piotr Gawryluk, 346895
+
+problem statement: http://students.mimuw.edu.pl/ZSO/PUBLIC-SO/2017-2018/_build/html/z1_elf/index-en.html
+
+---------------------------
+
+I use ptrace with flag PTRACE_SYSEMU to emulate alien program syscalls. For running the alien executable I'm using execve.
+After running execve I'm setting parameters I read from ELF file. ELF file is being checked for corectness to a reasonable degree.
+
+For generating random numbers I use SYS_getrandom syscall (its number is not included in headers so I had to define it on my own).
+For printing, moving cursor and changing colors I use ncurses library. I selected default ncurses colors for the ones specified in
+the task description (using A_BOLD and A_DIM as modifiers).
+
+When the code fails, it prints appropriate information on error output, kills alien program and finishes execution.
+Examples of errors: incorrect or inconsistent informations contained in ELF file, alien executable using syscalls in a wrong way,
+every error that's not cause by alien program - for example errors from syscalls executed by the emulator.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
 ZSO, zadanie zaliczeniowe 1
 Piotr Gawryluk, 346895
+
+treść zadania: http://students.mimuw.edu.pl/ZSO/PUBLIC-SO/2017-2018/_build/html/z1_elf/index.html
 
 ---------------------------
 
@@ -13,3 +37,5 @@ z dodatkowymi atrybutami A_BOLD i A_DIM.
 Gdy program napotyka błąd, wypisuje stosowną informację na wyjście błędów oraz kończy się, proces kosmitów zostaje wtedy zabity.
 Do błędów należą między innymi: błędne lub niespójne informacje w pliku ELF, błędne użycie syscalli przez program kosmitów,
 wszystkie błędy niezależne od programu kosmitów - np. błędy w wywołaniach funkcji systemowych przez program emu.
+
+---------------------------------------------------------------------------------------------------------------------------------------
